@@ -538,6 +538,9 @@ pub(super) fn synthesize_meta_json(
         .collect();
     let meta = IndexMeta {
         index_settings: IndexSettings::default(),
+        // No plugins: empty, which tantivy leaves out of the JSON, so the
+        // synthesized meta is byte-for-byte what 0.26 wrote.
+        persisted_custom_extensions: Vec::new(),
         segments: metas,
         schema: schema.clone(),
         opstamp: 0,
